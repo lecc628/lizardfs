@@ -83,6 +83,23 @@ static void open(const Context &ctx, FileInfo *fi) {
 }
 } // InodeOplog
 
+namespace InodeLuiso {
+static void open(const Context &ctx, FileInfo *fi) {
+	if ((fi->flags & O_ACCMODE) != O_RDONLY) {
+		oplog_printf(ctx, "open (%lu) (internal node: LUISO): %s",
+		            (unsigned long int)inode_,
+		            lizardfs_error_string(LIZARDFS_ERROR_EACCES));
+		throw RequestException(LIZARDFS_ERROR_EACCES);
+	}
+	fi->fh = oplog_newhandle(0);  // Test passing 1 instead of 0. 
+	fi->direct_io = 1;
+	fi->keep_cache = 0;
+	oplog_printf(ctx, "Hi! This file was created by Luiso.");
+	oplog_printf(ctx, "open (%lu) (internal node: LUISO): OK (1,0)",
+	            (unsigned long int)inode_);
+}
+} // InodeLuiso
+
 namespace InodeOphistory {
 static void open(const Context &ctx, FileInfo *fi) {
 	if ((fi->flags & O_ACCMODE) != O_RDONLY) {
@@ -116,16 +133,16 @@ static const std::array<std::function<void
 	 &InodeOplog::open,             //0x1U
 	 &InodeOphistory::open,         //0x2U
 	 &InodeTweaks::open,            //0x3U
+	 nullptr,                       //0x4U
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 nullptr,                       //0x8U
+	 &InodeLuiso::open,             //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU
 	 nullptr,                       //0xCU
 	 nullptr,                       //0xDU
-	 nullptr,                       //0xEU
 	 nullptr,                       //0xEU
 	 &InodeMasterInfo::open         //0xFU
 }};

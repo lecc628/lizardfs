@@ -132,6 +132,20 @@ static std::vector<uint8_t> read(const Context &ctx,
 }
 } // InodeOplog
 
+namespace InodeLuiso {
+static std::vector<uint8_t> read(const Context &ctx,
+		size_t size, off_t off, FileInfo *fi, int debug_mode) {
+	if (debug_mode) {
+		printDebugReadInfo(ctx, SPECIAL_INODE_LUISO, size, off);
+	}
+	uint32_t ssize;
+	uint8_t *buff;
+	oplog_getdata(fi->fh, &buff, &ssize, size);
+	oplog_releasedata(fi->fh);
+	return std::vector<uint8_t>(buff, buff + ssize);
+}
+} // InodeLuiso
+
 namespace InodeOphistory {
 static std::vector<uint8_t> read(const Context &ctx,
 		size_t size, off_t off, FileInfo *fi, int debug_mode) {
@@ -186,16 +200,16 @@ static const std::array<std::function<std::vector<uint8_t>
 	 &InodeOplog::read,             //0x1U
 	 &InodeOphistory::read,         //0x2U
 	 &InodeTweaks::read,            //0x3U
+	 nullptr,                       //0x4U
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 nullptr,                       //0x8U
+	 &InodeLuiso::read,             //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU
 	 nullptr,                       //0xCU
 	 nullptr,                       //0xDU
-	 nullptr,                       //0xEU
 	 nullptr,                       //0xEU
 	 &InodeMasterInfo::read         //0xFU
 }};

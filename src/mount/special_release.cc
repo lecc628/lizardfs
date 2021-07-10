@@ -59,6 +59,14 @@ static void release(FileInfo *fi) {
 }
 } // InodeOplog
 
+namespace InodeLuiso {
+static void release(FileInfo *fi) {
+	oplog_releasehandle(fi->fh);
+	oplog_printf("release (%lu) (internal node: LUISO): OK",
+	            (unsigned long int)inode_);
+}
+} // InodeLuiso
+
 namespace InodeOphistory {
 static void release(FileInfo *fi) {
 	oplog_releasehandle(fi->fh);
@@ -98,16 +106,16 @@ static const std::array<ReleaseFunc, 16> funcs = {{
 	 &InodeOplog::release,          //0x1U
 	 &InodeOphistory::release,      //0x2U
 	 &InodeTweaks::release,         //0x3U
+	 nullptr,                       //0x4U
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 nullptr,                       //0x8U
+	 &InodeLuiso::release,          //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU
 	 nullptr,                       //0xCU
 	 nullptr,                       //0xDU
-	 nullptr,                       //0xEU
 	 nullptr,                       //0xEU
 	 &InodeMasterInfo::release      //0xFU
 }};

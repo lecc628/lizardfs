@@ -45,6 +45,11 @@ const Attributes InodeOplog::attr =
 const Inode InodeOplog::inode_ = SPECIAL_INODE_OPLOG;
 
 // 0x0100 == 0b100000000 == 0400
+const Attributes InodeLuiso::attr =
+	  {{'f', 0x01,0x00, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0,0,0,0,0}};
+const Inode InodeLuiso::inode_ = SPECIAL_INODE_LUISO;
+
+// 0x0100 == 0b100000000 == 0400
 const Attributes InodeOphistory::attr =
 	  {{'f', 0x01,0x00, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0,0,0,0,0}};
 const Inode InodeOphistory::inode_ = SPECIAL_INODE_OPHISTORY;
