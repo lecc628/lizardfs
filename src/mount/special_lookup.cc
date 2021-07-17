@@ -86,7 +86,7 @@ static EntryParam lookup(const Context &ctx, Inode parent, const char *name,
 }
 } // InodeOplog
 
-namespace InodeLuiso {
+namespace InodeHello {
 static EntryParam lookup(const Context &ctx, Inode parent, const char *name,
 	                      char attrstr[256]) {
 	EntryParam e;
@@ -96,7 +96,7 @@ static EntryParam lookup(const Context &ctx, Inode parent, const char *name,
 	attr_to_stat(inode_, attr, &e.attr);
 	stats_inc(OP_LOOKUP_INTERNAL);
 	makeattrstr(attrstr, 256, &e.attr);
-	oplog_printf(ctx, "lookup (%lu,%s) (internal node: LUISO): OK (%.1f,%lu,%.1f,%s)",
+	oplog_printf(ctx, "lookup (%lu,%s) (internal node: HELLO): OK (%.1f,%lu,%.1f,%s)",
 	            (unsigned long int)parent,
 	            name,
 	            e.entry_timeout,
@@ -105,7 +105,7 @@ static EntryParam lookup(const Context &ctx, Inode parent, const char *name,
 	            attrstr);
 	return e;
 }
-} // InodeLuiso
+} // InodeHello
 
 namespace InodeOphistory {
 static EntryParam lookup(const Context &ctx, Inode parent, const char *name,
@@ -180,7 +180,7 @@ static const std::array<std::function<EntryParam
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 &InodeLuiso::lookup,           //0x8U
+	 &InodeHello::lookup,           //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU

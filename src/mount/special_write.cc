@@ -64,7 +64,7 @@ static BytesWritten write(const Context &ctx, const char */*buf*/, size_t size,
 }
 } // InodeOplog
 
-namespace InodeLuiso {
+namespace InodeHello {
 static BytesWritten write(const Context &ctx, const char */*buf*/, size_t size,
 	                       off_t off, FileInfo */*fi*/) {
 	oplog_printf(ctx, "write (%lu,%" PRIu64 ",%" PRIu64 "): %s",
@@ -74,7 +74,7 @@ static BytesWritten write(const Context &ctx, const char */*buf*/, size_t size,
 	            lizardfs_error_string(LIZARDFS_ERROR_EACCES));
 	throw RequestException(LIZARDFS_ERROR_EACCES);
 }
-} // InodeLuiso
+} // InodeHello
 
 namespace InodeOphistory {
 static BytesWritten write(const Context &ctx, const char */*buf*/, size_t size,
@@ -117,7 +117,7 @@ static const std::array<std::function<BytesWritten
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 &InodeLuiso::write,            //0x8U
+	 &InodeHello::write,            //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU

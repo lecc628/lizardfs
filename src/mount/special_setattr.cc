@@ -82,17 +82,17 @@ static AttrReply setattr(const Context &ctx, struct stat *stbuf, int to_set,
 }
 } // InodeOplog
 
-namespace InodeLuiso {
+namespace InodeHello {
 static AttrReply setattr(const Context &ctx, struct stat *stbuf, int to_set,
 	                 char modestr[11], char attrstr[256]) {
 	struct stat o_stbuf;
 	memset(&o_stbuf, 0, sizeof(struct stat));
 	attr_to_stat(inode_, attr, &o_stbuf);
 	makeattrstr(attrstr, 256, &o_stbuf);
-	printSetattrOplog(ctx, inode_, stbuf, to_set, modestr, attrstr, "LUISO");
+	printSetattrOplog(ctx, inode_, stbuf, to_set, modestr, attrstr, "HELLO");
 	return AttrReply{o_stbuf, 3600.0};
 }
-} // InodeLuiso
+} // InodeHello
 
 namespace InodeOphistory {
 static AttrReply setattr(const Context &ctx, struct stat *stbuf, int to_set,
@@ -140,7 +140,7 @@ static const std::array<std::function<AttrReply
 	 nullptr,                       //0x5U
 	 nullptr,                       //0x6U
 	 nullptr,                       //0x7U
-	 &InodeLuiso::setattr,          //0x8U
+	 &InodeHello::setattr,          //0x8U
 	 nullptr,                       //0x9U
 	 nullptr,                       //0xAU
 	 nullptr,                       //0xBU

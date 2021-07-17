@@ -50,7 +50,7 @@ namespace InodeOplog {
 	extern const LizardClient::Inode inode_;
 }
 
-namespace InodeLuiso {
+namespace InodeHello {
 	extern const Attributes attr;
 	extern const LizardClient::Inode inode_;
 }
