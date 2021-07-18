@@ -94,9 +94,8 @@ static void open(const Context &ctx, FileInfo *fi) {
 	fi->fh = oplog_newhandle(0);  // Test passing 1 instead of 0. 
 	fi->direct_io = 1;
 	fi->keep_cache = 0;
-	oplog_printf(ctx, "Hello world!");
-	// oplog_printf(ctx, "open (%lu) (internal node: HELLO): OK (1,0)",
-	//             (unsigned long int)inode_);
+	oplog_printf(ctx, "open (%lu) (internal node: HELLO): OK (1,0)",
+	            (unsigned long int)inode_);
 }
 } // InodeHello
 

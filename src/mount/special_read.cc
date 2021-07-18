@@ -138,11 +138,23 @@ static std::vector<uint8_t> read(const Context &ctx,
 	if (debug_mode) {
 		printDebugReadInfo(ctx, SPECIAL_INODE_HELLO, size, off);
 	}
-	uint32_t ssize;
-	uint8_t *buff;
-	oplog_getdata(fi->fh, &buff, &ssize, size);
-	oplog_releasedata(fi->fh);
-	return std::vector<uint8_t>(buff, buff + ssize);
+	// uint32_t ssize;
+	// uint8_t *buff;
+	// oplog_getdata(fi->fh, &buff, &ssize, size);
+	// oplog_releasedata(fi->fh);
+	// return std::vector<uint8_t>(buff, buff + ssize);
+
+	static constexpr auto TEXT_HELLO_WORLD = "Hello world!\n";
+	static constexpr uint32_t ssize = strlen(TEXT_HELLO_WORLD);
+
+	fi = fi;
+
+	if (off < ssize)
+	{
+		return std::vector<uint8_t>(TEXT_HELLO_WORLD, TEXT_HELLO_WORLD + ssize);
+	}
+
+	return std::vector<uint8_t>();
 }
 } // InodeHello
 
