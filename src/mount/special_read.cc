@@ -24,6 +24,8 @@
 
 using namespace LizardClient;
 
+#define UNUSED_ARG(x) ((void)x);
+
 static void printDebugReadInfo(const Context &ctx, Inode ino, uint64_t size, uint64_t off) {
 	oplog_printf(ctx, "read (%u,%" PRIu64 ",%" PRIu64 ") ...",
 	             (unsigned int)ino, size, off);
@@ -138,16 +140,11 @@ static std::vector<uint8_t> read(const Context &ctx,
 	if (debug_mode) {
 		printDebugReadInfo(ctx, SPECIAL_INODE_HELLO, size, off);
 	}
-	// uint32_t ssize;
-	// uint8_t *buff;
-	// oplog_getdata(fi->fh, &buff, &ssize, size);
-	// oplog_releasedata(fi->fh);
-	// return std::vector<uint8_t>(buff, buff + ssize);
 
 	static constexpr auto TEXT_HELLO_WORLD = "Hello world!\n";
 	static constexpr uint32_t ssize = strlen(TEXT_HELLO_WORLD);
 
-	fi = fi;
+	UNUSED_ARG(fi);
 
 	if (off < ssize)
 	{

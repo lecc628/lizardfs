@@ -44,9 +44,9 @@ const Attributes InodeOplog::attr =
 	  {{'f', 0x01,0x00, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0,0,0,0,0}};
 const Inode InodeOplog::inode_ = SPECIAL_INODE_OPLOG;
 
-// 0x0100 == 0b100000000 == 0400
+// 0x0124 == 0b100100100 == 0444
 const Attributes InodeHello::attr =
-	  {{'f', 0x01,0x00, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0,0,0,0,0}};
+	  {{'f', 0x01,0x24, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0,0,0,0,0}};
 const Inode InodeHello::inode_ = SPECIAL_INODE_HELLO;
 
 // 0x0100 == 0b100000000 == 0400
